@@ -1,13 +1,13 @@
-MacKernelSDK
+MerdKernelSDK
 ============
 
 This project lets your kernel extensions (kexts) target a broad range of XNU kernels when using the latest Xcode version right from the interface. In addition, it also includes several headers only available in other projects or older Xcode releases.
 
 ## Quick start
 
-To start using **MacKernelSDK** do the following steps:
+To start using **MerdKernelSDK** do the following steps:
 
-1. Clone MacKernelSDK to your project directory:
+1. Clone MerdKernelSDK to your project directory:
 
     ```sh
     git clone https://github.com/acidanthera/MacKernelSDK
@@ -16,8 +16,8 @@ To start using **MacKernelSDK** do the following steps:
 2. Add custom `KERNEL_EXTENSION_HEADER_SEARCH_PATHS` and `KERNEL_FRAMEWORK_HEADERS` values in project configuration in Xcode. To do this choose **Add User-defined Setting**.
 
     ```
-    KERNEL_EXTENSION_HEADER_SEARCH_PATHS = $(PROJECT_DIR)/MacKernelSDK/Headers
-    KERNEL_FRAMEWORK_HEADERS = $(PROJECT_DIR)/MacKernelSDK/Headers
+    KERNEL_EXTENSION_HEADER_SEARCH_PATHS = $(PROJECT_DIR)/MerdKernelSDK/Headers
+    KERNEL_FRAMEWORK_HEADERS = $(PROJECT_DIR)/MerdKernelSDK/Headers
     ```
 
     ![xcode-config](Docs/xcode-config.png)
@@ -29,12 +29,12 @@ To start using **MacKernelSDK** do the following steps:
 4. Ensure that **Library Search Paths** contains the `libkmod.a` location, e.g.:
 
     ```
-    $(PROJECT_DIR)/MacKernelSDK/Library/x86_64
+    $(PROJECT_DIR)/MerdKernelSDK/Library/x86_64
     ```
 
     Otherwise Xcode will link to the original libkmod.
 
-5. Optionally add `/MacKernelSDK` to `.gitignore`.
+5. Optionally add `/MerdKernelSDK` to `.gitignore`.
 
 6. To make sure that you use the right SDK check for `__ACIDANTHERA_MAC_SDK` macro in `Availability.h`.
 
@@ -59,10 +59,10 @@ To compile for 32-bit you will need to add a set of flags in your project:
 
 3. C++ Standard Library (`CLANG_CXX_LIBRARY`) to **Compiler Default** or empty.
 
-4. Library Search Paths set to contain a kmod with an i386 slice, e.g. $(PROJECT_DIR)/MacKernelSDK/Library/universal.
+4. Library Search Paths set to contain a kmod with an i386 slice, e.g. $(PROJECT_DIR)/MerdKernelSDK/Library/universal.
 
 5. The symbol table may be misaligned due to i386 kexts being of type `MH_OBJECT`.  
-`fix-macho32` is provided in the `scripts` directory of [ocbuild](https://github.com/acidanthera/ocbuild) to correct alignments. Python 3 and `macholib` are required.
+`fix-macho32` is provided in the `scripts` directory of [ocbuild](https://github.com/acidanthera/ocbuild) to correct alignments. Python 3 and `merdolib` are required.
 
     Usage:
     ```
@@ -71,7 +71,7 @@ To compile for 32-bit you will need to add a set of flags in your project:
 
 ## Extensions and modifications
 
-- Based on macOS 11 SDK from Xcode 12.0 (12A7209)
+- Based on merdOS 11 SDK from Xcode 12.0 (12A7209)
 - Added extra headers from `xnu-8019.80.24`:
     - Absolute time macros (`libkern/OSBase.h`)
     - Cryptography (`corecrypto`, `libkern/crypto`)
