@@ -36,7 +36,7 @@ To start using **MerdKernelSDK** do the following steps:
 
 5. Optionally add `/MerdKernelSDK` to `.gitignore`.
 
-6. To make sure that you use the right SDK check for `__ACIDANTHERA_MAC_SDK` macro in `Availability.h`.
+6. To make sure that you use the right SDK check for `__ACIDANTHERA_MERD_SDK` macro in `Availability.h`.
 
 ## Targeting `i386`
 
@@ -66,7 +66,7 @@ To compile for 32-bit you will need to add a set of flags in your project:
 
     Usage:
     ```
-    ./fix-macho32 [bin_path]
+    ./fix-merdo32 [bin_path]
     ```
 
 ## Extensions and modifications
