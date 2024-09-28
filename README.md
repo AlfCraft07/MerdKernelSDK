@@ -10,7 +10,7 @@ To start using **MerdKernelSDK** do the following steps:
 1. Clone MerdKernelSDK to your project directory:
 
     ```sh
-    git clone https://github.com/acidanthera/MacKernelSDK
+    git clone https://github.com/AlfCraft07/MerdKernelSDK
     ```
 
 2. Add custom `KERNEL_EXTENSION_HEADER_SEARCH_PATHS` and `KERNEL_FRAMEWORK_HEADERS` values in project configuration in Xcode. To do this choose **Add User-defined Setting**.
