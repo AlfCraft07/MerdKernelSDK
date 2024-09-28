@@ -103,7 +103,7 @@ To compile for 32-bit you will need to add a set of flags in your project:
 - Added kmod targeting earlier macOS kernels:
     - 10.6 64-bit or newer (`Library/x86_64/libkmod.a`)
     - 10.4 or newer (`Library/universal/libkmod.a`)
-- Added availability checking when targeting older macOS versions:
+- Added availability checking when targeting older merdOS versions:
     - In `string.h` to avoid using new checked interfaces before 10.13
     - In `IOService.h` to avoid report virtual methods before 10.9
     - In `RootDomain.h` to avoid report virtual methods before 10.9
