@@ -76,7 +76,7 @@ To compile for 32-bit you will need to add a set of flags in your project:
     - Absolute time macros (`libkern/OSBase.h`)
     - Cryptography (`corecrypto`, `libkern/crypto`)
     - CPU PM (`i386/cpu_topology.h` and `i386/pmCPU.h`)
-    - MAC Framework (`security/_label.h`, `security/mac_framework.h`, `security/mac_policy.h`)
+    - MERD Framework (`security/_label.h`, `security/mac_framework.h`, `security/mac_policy.h`)
     - Skywalk Subsystem (`skywalk`, `IOKit/skywalk/IOSkywalkSupport.h`)
 - Added private headers from IOHIDFamily 1446.140.2:
     - `IOHIDPrivateKeys.h`
