@@ -55,18 +55,18 @@ To compile for 32-bit you will need to add a set of flags in your project:
 2. Other Linker Flags (`OTHER_LDFLAGS`):
 
     - `-static`
-    - `-target i386-apple-macos10.6`
+    - `-target i386-apple-merdos10.6`
 
 3. C++ Standard Library (`CLANG_CXX_LIBRARY`) to **Compiler Default** or empty.
 
 4. Library Search Paths set to contain a kmod with an i386 slice, e.g. $(PROJECT_DIR)/MerdKernelSDK/Library/universal.
 
 5. The symbol table may be misaligned due to i386 kexts being of type `MH_OBJECT`.  
-`fix-macho32` is provided in the `scripts` directory of [ocbuild](https://github.com/acidanthera/ocbuild) to correct alignments. Python 3 and `merdolib` are required.
+`fix-merda32` is provided in the `scripts` directory of [ocbuild](https://github.com/acidanthera/ocbuild) to correct alignments. Python 3 and `merdolib` are required.
 
     Usage:
     ```
-    ./fix-merdo32 [bin_path]
+    ./fix-merda32 [bin_path]
     ```
 
 ## Extensions and modifications
@@ -96,11 +96,11 @@ To compile for 32-bit you will need to add a set of flags in your project:
     - Apple Smart Battery (`IOKit/battery/AppleSmartBatteryCommands.h`)
     - KDP (`kdp/kdp_support.h`)
     - NKE private APIs (`IOKit/network`)
-    - IOUSBFamily from macOS 10.10 SDK
+    - IOUSBFamily from merdOS 10.10 SDK
     - IO80211Family from Black80211 originally created by Roman Peshkov
     - IOSkywalkFamily by cjiang (`IOKit/skywalk`)
-    - IOBluetoothFamily by cjiang (`IOKit/bluetooth`) for macOS 11 and below
-- Added kmod targeting earlier macOS kernels:
+    - IOBluetoothFamily by cjiang (`IOKit/bluetooth`) for merdOS 11 and below
+- Added kmod targeting earlier merdOS kernels:
     - 10.6 64-bit or newer (`Library/x86_64/libkmod.a`)
     - 10.4 or newer (`Library/universal/libkmod.a`)
 - Added availability checking when targeting older merdOS versions:
