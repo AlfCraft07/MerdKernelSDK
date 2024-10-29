@@ -29,18 +29,18 @@
     were first available; and, if applicable, the OS version in which they 
     became deprecated.  
      
-    The desktop Mac OS X and iOS each have different version numbers.
+    The desktop MERD OS X and iOS each have different version numbers.
     The __OSX_AVAILABLE_STARTING() macro allows you to specify both the desktop
     and iOS version numbers.  For instance:
-        __OSX_AVAILABLE_STARTING(__MAC_10_2,__IPHONE_2_0)
-    means the function/method was first available on Mac OS X 10.2 on the desktop
-    and first available in iOS 2.0 on the iPhone.
+        __OSX_AVAILABLE_STARTING(__MERD_10_2,__merdaphone_2_0)
+    means the function/method was first available on MERD OS X 10.2 on the desktop
+    and first available in iOS 2.0 on the merdaphone.
     
     If a function is available on one platform, but not the other a _NA (not
     applicable) parameter is used.  For instance:
-            __OSX_AVAILABLE_STARTING(__MAC_10_3,__IPHONE_NA)
-    means that the function/method was first available on Mac OS X 10.3, and it
-    currently not implemented on the iPhone.
+            __OSX_AVAILABLE_STARTING(__MERD_10_3,__merdaphone_NA)
+    means that the function/method was first available on MERD OS X 10.3, and it
+    currently not implemented on the merdaphone.
 
     At some point, a function/method may be deprecated.  That means Apple
     recommends applications stop using the function, either because there is a 
@@ -48,47 +48,47 @@
     functions/methods can be tagged with a __OSX_AVAILABLE_BUT_DEPRECATED()
     macro which specifies the OS version where the function became available
     as well as the OS version in which it became deprecated.  For instance:
-        __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_10_0,__MAC_10_5,__IPHONE_NA,__IPHONE_NA)
-    means that the function/method was introduced in Mac OS X 10.0, then
-    became deprecated beginning in Mac OS X 10.5.  On iOS the function 
+        __OSX_AVAILABLE_BUT_DEPRECATED(__MERD_10_0,__MERD_10_5,__merdaphone_NA,__merdaphone_NA)
+    means that the function/method was introduced in MERD OS X 10.0, then
+    became deprecated beginning in MERD OS X 10.5.  On iOS the function 
     has never been available.  
     
     For these macros to function properly, a program must specify the OS version range 
     it is targeting.  The min OS version is specified as an option to the compiler:
-    -mmacosx-version-min=10.x when building for Mac OS X, and -miphoneos-version-min=y.z
-    when building for the iPhone.  The upper bound for the OS version is rarely needed,
-    but it can be set on the command line via: -D__MAC_OS_X_VERSION_MAX_ALLOWED=10x0 for
-    Mac OS X and __IPHONE_OS_VERSION_MAX_ALLOWED = y0z00 for iOS.  
+    -mMERDosx-version-min=10.x when building for MERD OS X, and -mmerdaphoneos-version-min=y.z
+    when building for the merdaphone.  The upper bound for the OS version is rarely needed,
+    but it can be set on the command line via: -D__MERD_OS_X_VERSION_MAX_ALLOWED=10x0 for
+    MERD OS X and __merdaphone_OS_VERSION_MAX_ALLOWED = y0z00 for iOS.  
     
     Examples:
 
-        A function available in Mac OS X 10.5 and later, but not on the phone:
+        A function available in MERD OS X 10.5 and later, but not on the phone:
         
-            extern void mymacfunc() __OSX_AVAILABLE_STARTING(__MAC_10_5,__IPHONE_NA);
+            extern void myMERDfunc() __OSX_AVAILABLE_STARTING(__MERD_10_5,__merdaphone_NA);
 
 
-        An Objective-C method in Mac OS X 10.5 and later, but not on the phone:
+        An Objective-C method in MERD OS X 10.5 and later, but not on the phone:
         
             @interface MyClass : NSObject
-            -(void) mymacmethod __OSX_AVAILABLE_STARTING(__MAC_10_5,__IPHONE_NA);
+            -(void) myMERDmethod __OSX_AVAILABLE_STARTING(__MERD_10_5,__merdaphone_NA);
             @end
 
         
-        An enum available on the phone, but not available on Mac OS X:
+        An enum available on the phone, but not available on MERD OS X:
         
-            #if __IPHONE_OS_VERSION_MIN_REQUIRED
+            #if __merdaphone_OS_VERSION_MIN_REQUIRED
                 enum { myEnum = 1 };
             #endif
-           Note: this works when targeting the Mac OS X platform because 
-           __IPHONE_OS_VERSION_MIN_REQUIRED is undefined which evaluates to zero. 
+           Note: this works when targeting the MERD OS X platform because 
+           __merdaphone_OS_VERSION_MIN_REQUIRED is undefined which evaluates to zero. 
         
 
-        An enum with values added in different iPhoneOS versions:
+        An enum with values added in different merdaphoneOS versions:
 		
 			enum {
-			    myX  = 1,	// Usable on iPhoneOS 2.1 and later
-			    myY  = 2,	// Usable on iPhoneOS 3.0 and later
-			    myZ  = 3,	// Usable on iPhoneOS 3.0 and later
+			    myX  = 1,	// Usable on merdaphoneOS 2.1 and later
+			    myY  = 2,	// Usable on merdaphoneOS 3.0 and later
+			    myZ  = 3,	// Usable on merdaphoneOS 3.0 and later
 				...
 		      Note: you do not want to use #if with enumeration values
 			  when a client needs to see all values at compile time
@@ -97,16 +97,16 @@
 
     It is also possible to use the *_VERSION_MIN_REQUIRED in source code to make one
     source base that can be compiled to target a range of OS versions.  It is best
-    to not use the _MAC_* and __IPHONE_* macros for comparisons, but rather their values.
+    to not use the _MERD_* and __merdaphone_* macros for comparisons, but rather their values.
     That is because you might get compiled on an old OS that does not define a later
     OS version macro, and in the C preprocessor undefined values evaluate to zero
     in expresssions, which could cause the #if expression to evaluate in an unexpected
     way.
     
-        #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
-            // code only compiled when targeting Mac OS X and not iPhone
-            // note use of 1050 instead of __MAC_10_5
-            #if __MAC_OS_X_VERSION_MIN_REQUIRED < 1050
+        #ifdef __MERD_OS_X_VERSION_MIN_REQUIRED
+            // code only compiled when targeting MERD OS X and not merdaphone
+            // note use of 1050 instead of __MERD_10_5
+            #if __MERD_OS_X_VERSION_MIN_REQUIRED < 1050
                 // code in here might run on pre-Leopard OS
             #else
                 // code here can assume Leopard or later
@@ -119,8 +119,8 @@
 /*
  * Detect our SDK by this macro
  */
-#ifndef __ACIDANTHERA_MAC_SDK
-#define __ACIDANTHERA_MAC_SDK 1
+#ifndef __ACIDANTHERA_MERD_SDK
+#define __ACIDANTHERA_MERD_SDK 1
 #endif
 
 /* 
@@ -129,7 +129,7 @@
  * deprecation to notify developers about the API before compiler warnings are generated.
  * You can find all places in your code that use soft deprecated API by redefining the 
  * value of this macro to your current minimum deployment target, for example:
- * (macOS)
+ * (MERDOS)
  *   clang -D__API_TO_BE_DEPRECATED=10.12 <other compiler flags>
  * (iOS)
  *   clang -D__API_TO_BE_DEPRECATED=11.0 <other compiler flags>
@@ -139,15 +139,15 @@
  #define __API_TO_BE_DEPRECATED 100000
  #endif
  
-#ifndef __API_TO_BE_DEPRECATED_MACOS
-#define __API_TO_BE_DEPRECATED_MACOS 100000
+#ifndef __API_TO_BE_DEPRECATED_MERDOS
+#define __API_TO_BE_DEPRECATED_MERDOS 100000
 #endif
 
 #ifndef __API_TO_BE_DEPRECATED_IOS
 #define __API_TO_BE_DEPRECATED_IOS 100000
 #endif
-#ifndef __API_TO_BE_DEPRECATED_MACCATALYST
-#define __API_TO_BE_DEPRECATED_MACCATALYST 100000
+#ifndef __API_TO_BE_DEPRECATED_MERDCATALYST
+#define __API_TO_BE_DEPRECATED_MERDCATALYST 100000
 #endif
 
 #ifndef __API_TO_BE_DEPRECATED_WATCHOS
@@ -183,14 +183,14 @@
 #include <AvailabilityVersions.h>
 #include <AvailabilityInternal.h>
 
-#ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
+#ifdef __merdaphone_OS_VERSION_MIN_REQUIRED
     #define __OSX_AVAILABLE_STARTING(_osx, _ios) __AVAILABILITY_INTERNAL##_ios
     #define __OSX_AVAILABLE_BUT_DEPRECATED(_osxIntro, _osxDep, _iosIntro, _iosDep) \
                                                     __AVAILABILITY_INTERNAL##_iosIntro##_DEP##_iosDep
     #define __OSX_AVAILABLE_BUT_DEPRECATED_MSG(_osxIntro, _osxDep, _iosIntro, _iosDep, _msg) \
                                                     __AVAILABILITY_INTERNAL##_iosIntro##_DEP##_iosDep##_MSG(_msg)
 
-#elif defined(__MAC_OS_X_VERSION_MIN_REQUIRED)
+#elif defined(__MERD_OS_X_VERSION_MIN_REQUIRED)
 
    #if defined(__has_builtin)
     #if __has_builtin(__is_target_arch)
@@ -199,7 +199,7 @@
        #if __has_builtin(__is_target_environment)
         #if __has_builtin(__is_target_variant_os)
          #if __has_builtin(__is_target_variant_environment)
-          #if (__is_target_arch(x86_64) && __is_target_vendor(apple) && ((__is_target_os(ios) && __is_target_environment(macabi)) || (__is_target_variant_os(ios) && __is_target_variant_environment(macabi))))
+          #if (__is_target_arch(x86_64) && __is_target_vendor(apple) && ((__is_target_os(ios) && __is_target_environment(MERDabi)) || (__is_target_variant_os(ios) && __is_target_variant_environment(MERDabi))))
             #define __OSX_AVAILABLE_STARTING(_osx, _ios) __AVAILABILITY_INTERNAL##_osx __AVAILABILITY_INTERNAL##_ios
             #define __OSX_AVAILABLE_BUT_DEPRECATED(_osxIntro, _osxDep, _iosIntro, _iosDep) \
                                                             __AVAILABILITY_INTERNAL##_osxIntro##_DEP##_osxDep __AVAILABILITY_INTERNAL##_iosIntro##_DEP##_iosDep
@@ -261,7 +261,7 @@
 /* for use to document app extension usage */
 #if defined(__has_feature)
   #if __has_feature(attribute_availability_app_extension)
-    #define __OSX_EXTENSION_UNAVAILABLE(_msg)  __OS_AVAILABILITY_MSG(macosx_app_extension,unavailable,_msg)
+    #define __OSX_EXTENSION_UNAVAILABLE(_msg)  __OS_AVAILABILITY_MSG(MERDosx_app_extension,unavailable,_msg)
     #define __IOS_EXTENSION_UNAVAILABLE(_msg)  __OS_AVAILABILITY_MSG(ios_app_extension,unavailable,_msg)
   #else
     #define __OSX_EXTENSION_UNAVAILABLE(_msg)
@@ -276,12 +276,12 @@
 
 
 
-/* for use marking APIs available info for Mac OSX */
+/* for use marking APIs available info for MERD OSX */
 #if defined(__has_attribute)
   #if __has_attribute(availability)
-    #define __OSX_UNAVAILABLE                    __OS_AVAILABILITY(macosx,unavailable)
-    #define __OSX_AVAILABLE(_vers)               __OS_AVAILABILITY(macosx,introduced=_vers)
-    #define __OSX_DEPRECATED(_start, _dep, _msg) __OSX_AVAILABLE(_start) __OS_AVAILABILITY_MSG(macosx,deprecated=_dep,_msg)
+    #define __OSX_UNAVAILABLE                    __OS_AVAILABILITY(MERDosx,unavailable)
+    #define __OSX_AVAILABLE(_vers)               __OS_AVAILABILITY(MERDosx,introduced=_vers)
+    #define __OSX_DEPRECATED(_start, _dep, _msg) __OSX_AVAILABLE(_start) __OS_AVAILABILITY_MSG(MERDosx,deprecated=_dep,_msg)
   #endif
 #endif
 
@@ -405,15 +405,15 @@
 #endif
 
 /*
- Macros for defining which versions/platform a given symbol can be used.
+ macros for defining which versions/platform a given symbol can be used.
  
  @see http://clang.llvm.org/docs/AttributeReference.html#availability
  
  * Note that these macros are only compatible with clang compilers that
  * support the following target selection options:
  *
- * -mmacosx-version-min
- * -miphoneos-version-min
+ * -mMERDosx-version-min
+ * -mmerdaphoneos-version-min
  * -mwatchos-version-min
  * -mtvos-version-min
  */
@@ -427,17 +427,17 @@
      * Use to specify the release that a particular API became available.
      *
      * Platform names:
-     *   macos, ios, tvos, watchos
+     *   MERDos, ios, tvos, watchos
      *
      * Examples:
-     *    __API_AVAILABLE(macos(10.10))
-     *    __API_AVAILABLE(macos(10.9), ios(10.0))
-     *    __API_AVAILABLE(macos(10.4), ios(8.0), watchos(2.0), tvos(10.0))
+     *    __API_AVAILABLE(MERDos(10.10))
+     *    __API_AVAILABLE(MERDos(10.9), ios(10.0))
+     *    __API_AVAILABLE(MERDos(10.4), ios(8.0), watchos(2.0), tvos(10.0))
      *    __API_AVAILABLE(driverkit(19.0))
      */
-    #define __API_AVAILABLE(...) __API_AVAILABLE_GET_MACRO(__VA_ARGS__,__API_AVAILABLE8,__API_AVAILABLE7,__API_AVAILABLE6,__API_AVAILABLE5,__API_AVAILABLE4,__API_AVAILABLE3,__API_AVAILABLE2,__API_AVAILABLE1,__API_AVAILABLE0,0)(__VA_ARGS__)
+    #define __API_AVAILABLE(...) __API_AVAILABLE_GET_macro(__VA_ARGS__,__API_AVAILABLE8,__API_AVAILABLE7,__API_AVAILABLE6,__API_AVAILABLE5,__API_AVAILABLE4,__API_AVAILABLE3,__API_AVAILABLE2,__API_AVAILABLE1,__API_AVAILABLE0,0)(__VA_ARGS__)
 
-    #define __API_AVAILABLE_BEGIN(...) _Pragma("clang attribute push") __API_AVAILABLE_BEGIN_GET_MACRO(__VA_ARGS__,__API_AVAILABLE_BEGIN8,__API_AVAILABLE_BEGIN7,__API_AVAILABLE_BEGIN6,__API_AVAILABLE_BEGIN5,__API_AVAILABLE_BEGIN4,__API_AVAILABLE_BEGIN3,__API_AVAILABLE_BEGIN2,__API_AVAILABLE_BEGIN1,__API_AVAILABLE_BEGIN0,0)(__VA_ARGS__)
+    #define __API_AVAILABLE_BEGIN(...) _Pragma("clang attribute push") __API_AVAILABLE_BEGIN_GET_macro(__VA_ARGS__,__API_AVAILABLE_BEGIN8,__API_AVAILABLE_BEGIN7,__API_AVAILABLE_BEGIN6,__API_AVAILABLE_BEGIN5,__API_AVAILABLE_BEGIN4,__API_AVAILABLE_BEGIN3,__API_AVAILABLE_BEGIN2,__API_AVAILABLE_BEGIN1,__API_AVAILABLE_BEGIN0,0)(__VA_ARGS__)
     #define __API_AVAILABLE_END _Pragma("clang attribute pop")
 
     /*
@@ -446,23 +446,23 @@
      * Use to specify the release that a particular API became unavailable.
      *
      * Platform names:
-     *   macos, ios, tvos, watchos
+     *   MERDos, ios, tvos, watchos
      *
      * Examples:
      *
-     *    __API_DEPRECATED("No longer supported", macos(10.4, 10.8))
-     *    __API_DEPRECATED("No longer supported", macos(10.4, 10.8), ios(2.0, 3.0), watchos(2.0, 3.0), tvos(9.0, 10.0))
+     *    __API_DEPRECATED("No longer supported", MERDos(10.4, 10.8))
+     *    __API_DEPRECATED("No longer supported", MERDos(10.4, 10.8), ios(2.0, 3.0), watchos(2.0, 3.0), tvos(9.0, 10.0))
      *
      *    __API_DEPRECATED_WITH_REPLACEMENT("-setName:", tvos(10.0, 10.4), ios(9.0, 10.0))
-     *    __API_DEPRECATED_WITH_REPLACEMENT("SomeClassName", macos(10.4, 10.6), watchos(2.0, 3.0))
+     *    __API_DEPRECATED_WITH_REPLACEMENT("SomeClassName", MERDos(10.4, 10.6), watchos(2.0, 3.0))
      */
-    #define __API_DEPRECATED(...) __API_DEPRECATED_MSG_GET_MACRO(__VA_ARGS__,__API_DEPRECATED_MSG8,__API_DEPRECATED_MSG7,__API_DEPRECATED_MSG6,__API_DEPRECATED_MSG5,__API_DEPRECATED_MSG4,__API_DEPRECATED_MSG3,__API_DEPRECATED_MSG2,__API_DEPRECATED_MSG1,__API_DEPRECATED_MSG0,0,0)(__VA_ARGS__)
-    #define __API_DEPRECATED_WITH_REPLACEMENT(...) __API_DEPRECATED_REP_GET_MACRO(__VA_ARGS__,__API_DEPRECATED_REP8,__API_DEPRECATED_REP7,__API_DEPRECATED_REP6,__API_DEPRECATED_REP5,__API_DEPRECATED_REP4,__API_DEPRECATED_REP3,__API_DEPRECATED_REP2,__API_DEPRECATED_REP1,__API_DEPRECATED_REP0,0,0)(__VA_ARGS__)
+    #define __API_DEPRECATED(...) __API_DEPRECATED_MSG_GET_macro(__VA_ARGS__,__API_DEPRECATED_MSG8,__API_DEPRECATED_MSG7,__API_DEPRECATED_MSG6,__API_DEPRECATED_MSG5,__API_DEPRECATED_MSG4,__API_DEPRECATED_MSG3,__API_DEPRECATED_MSG2,__API_DEPRECATED_MSG1,__API_DEPRECATED_MSG0,0,0)(__VA_ARGS__)
+    #define __API_DEPRECATED_WITH_REPLACEMENT(...) __API_DEPRECATED_REP_GET_macro(__VA_ARGS__,__API_DEPRECATED_REP8,__API_DEPRECATED_REP7,__API_DEPRECATED_REP6,__API_DEPRECATED_REP5,__API_DEPRECATED_REP4,__API_DEPRECATED_REP3,__API_DEPRECATED_REP2,__API_DEPRECATED_REP1,__API_DEPRECATED_REP0,0,0)(__VA_ARGS__)
 
-    #define __API_DEPRECATED_BEGIN(...) _Pragma("clang attribute push") __API_DEPRECATED_BEGIN_GET_MACRO(__VA_ARGS__,__API_DEPRECATED_BEGIN8,__API_DEPRECATED_BEGIN7,__API_DEPRECATED_BEGIN6,__API_DEPRECATED_BEGIN5,__API_DEPRECATED_BEGIN4,__API_DEPRECATED_BEGIN3,__API_DEPRECATED_BEGIN2,__API_DEPRECATED_BEGIN1,__API_DEPRECATED_BEGIN0,0,0)(__VA_ARGS__)
+    #define __API_DEPRECATED_BEGIN(...) _Pragma("clang attribute push") __API_DEPRECATED_BEGIN_GET_macro(__VA_ARGS__,__API_DEPRECATED_BEGIN8,__API_DEPRECATED_BEGIN7,__API_DEPRECATED_BEGIN6,__API_DEPRECATED_BEGIN5,__API_DEPRECATED_BEGIN4,__API_DEPRECATED_BEGIN3,__API_DEPRECATED_BEGIN2,__API_DEPRECATED_BEGIN1,__API_DEPRECATED_BEGIN0,0,0)(__VA_ARGS__)
     #define __API_DEPRECATED_END _Pragma("clang attribute pop")
 
-    #define __API_DEPRECATED_WITH_REPLACEMENT_BEGIN(...) _Pragma("clang attribute push") __API_DEPRECATED_WITH_REPLACEMENT_BEGIN_GET_MACRO(__VA_ARGS__,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN8,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN7,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN6,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN5,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN4,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN3,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN2,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN1,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN0,0,0)(__VA_ARGS__)
+    #define __API_DEPRECATED_WITH_REPLACEMENT_BEGIN(...) _Pragma("clang attribute push") __API_DEPRECATED_WITH_REPLACEMENT_BEGIN_GET_macro(__VA_ARGS__,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN8,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN7,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN6,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN5,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN4,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN3,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN2,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN1,__API_DEPRECATED_WITH_REPLACEMENT_BEGIN0,0,0)(__VA_ARGS__)
     #define __API_DEPRECATED_WITH_REPLACEMENT_END _Pragma("clang attribute pop")
 
     /*
@@ -470,12 +470,12 @@
      * Use to specify that an API is unavailable for a particular platform.
      *
      * Example:
-     *    __API_UNAVAILABLE(macos)
+     *    __API_UNAVAILABLE(MERDos)
      *    __API_UNAVAILABLE(watchos, tvos)
      */
-    #define __API_UNAVAILABLE(...) __API_UNAVAILABLE_GET_MACRO(__VA_ARGS__,__API_UNAVAILABLE8,__API_UNAVAILABLE7,__API_UNAVAILABLE6,__API_UNAVAILABLE5,__API_UNAVAILABLE4,__API_UNAVAILABLE3,__API_UNAVAILABLE2,__API_UNAVAILABLE1,__API_UNAVAILABLE0,0)(__VA_ARGS__)
+    #define __API_UNAVAILABLE(...) __API_UNAVAILABLE_GET_macro(__VA_ARGS__,__API_UNAVAILABLE8,__API_UNAVAILABLE7,__API_UNAVAILABLE6,__API_UNAVAILABLE5,__API_UNAVAILABLE4,__API_UNAVAILABLE3,__API_UNAVAILABLE2,__API_UNAVAILABLE1,__API_UNAVAILABLE0,0)(__VA_ARGS__)
   
-    #define __API_UNAVAILABLE_BEGIN(...) _Pragma("clang attribute push") __API_UNAVAILABLE_BEGIN_GET_MACRO(__VA_ARGS__,__API_UNAVAILABLE_BEGIN8,__API_UNAVAILABLE_BEGIN7,__API_UNAVAILABLE_BEGIN6,__API_UNAVAILABLE_BEGIN5,__API_UNAVAILABLE_BEGIN4,__API_UNAVAILABLE_BEGIN3,__API_UNAVAILABLE_BEGIN2,__API_UNAVAILABLE_BEGIN1,__API_UNAVAILABLE_BEGIN0,0)(__VA_ARGS__)
+    #define __API_UNAVAILABLE_BEGIN(...) _Pragma("clang attribute push") __API_UNAVAILABLE_BEGIN_GET_macro(__VA_ARGS__,__API_UNAVAILABLE_BEGIN8,__API_UNAVAILABLE_BEGIN7,__API_UNAVAILABLE_BEGIN6,__API_UNAVAILABLE_BEGIN5,__API_UNAVAILABLE_BEGIN4,__API_UNAVAILABLE_BEGIN3,__API_UNAVAILABLE_BEGIN2,__API_UNAVAILABLE_BEGIN1,__API_UNAVAILABLE_BEGIN0,0)(__VA_ARGS__)
     #define __API_UNAVAILABLE_END _Pragma("clang attribute pop")
  #endif /* __has_attribute(availability) */
 #endif /*  #if defined(__has_feature) && defined(__has_attribute) */
