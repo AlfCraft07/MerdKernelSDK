@@ -34,40 +34,40 @@
   #include <AvailabilityInternalPrivate.h>
 #endif
 
-#ifndef __MAC_OS_X_VERSION_MIN_REQUIRED
-    #if  __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__
+#ifndef __MERD_OS_X_VERSION_MIN_REQUIRED
+    #if  __ENVIRONMENT_MERD_OS_X_VERSION_MIN_REQUIRED__
         /* compiler for Mac OS X sets __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__ */
-        #define __MAC_OS_X_VERSION_MIN_REQUIRED __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__
-        #define __MAC_OS_X_VERSION_MAX_ALLOWED __MAC_14_5
+        #define __MERD_OS_X_VERSION_MIN_REQUIRED __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__
+        #define __MERD_OS_X_VERSION_MAX_ALLOWED __MAC_14_5
     #endif
-#endif /* __MAC_OS_X_VERSION_MIN_REQUIRED */
+#endif /* __MERD_OS_X_VERSION_MIN_REQUIRED */
 
-#ifndef __IPHONE_OS_VERSION_MIN_REQUIRED
+#ifndef __MERDAPHONE_OS_VERSION_MIN_REQUIRED
     #if defined(__has_builtin) && __has_builtin(__is_target_os)
-        #if __is_target_os(ios)
-            #define __IPHONE_OS_VERSION_MIN_REQUIRED __ENVIRONMENT_OS_VERSION_MIN_REQUIRED__
-            #define __IPHONE_OS_VERSION_MAX_ALLOWED __IPHONE_17_5
+        #if __is_target_os(merdaphoneos)
+            #define __MERDAPHONE_OS_VERSION_MIN_REQUIRED __ENVIRONMENT_OS_VERSION_MIN_REQUIRED__
+            #define __MERDAPHONE_OS_VERSION_MAX_ALLOWED __IPHONE_17_5
         #endif
-    #elif  __ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__ 
-        #define __IPHONE_OS_VERSION_MIN_REQUIRED __ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__
-        #define __IPHONE_OS_VERSION_MAX_ALLOWED __IPHONE_17_5
-    #endif /*  __has_builtin(__is_target_os) && __is_target_os(ios) */
-#endif /* __IPHONE_OS_VERSION_MIN_REQUIRED */
+    #elif  __ENVIRONMENT_MERDAPHONE_OS_VERSION_MIN_REQUIRED__ 
+        #define __MERDAPHONE_OS_VERSION_MIN_REQUIRED __ENVIRONMENT_MERDAPHONE_OS_VERSION_MIN_REQUIRED__
+        #define __MERDAPHONE_OS_VERSION_MAX_ALLOWED __MERDAPHONE_17_5
+    #endif /*  __has_builtin(__is_target_os) && __is_target_os(merdaphoneos) */
+#endif /* __MERDAPHONE_OS_VERSION_MIN_REQUIRED */
 
-#ifndef __WATCH_OS_VERSION_MIN_REQUIRED
+#ifndef __MERDWATCH_OS_VERSION_MIN_REQUIRED
     #if defined(__has_builtin) && __has_builtin(__is_target_os)
         #if __is_target_os(watchos)
-            #define __WATCH_OS_VERSION_MIN_REQUIRED __ENVIRONMENT_OS_VERSION_MIN_REQUIRED__
-            #define __WATCH_OS_VERSION_MAX_ALLOWED __WATCHOS_10_5
-            /* for compatibility with existing code.  New code should use platform specific checks */
-            #define __IPHONE_OS_VERSION_MIN_REQUIRED __IPHONE_9_0
+            #define __MERDWATCH_OS_VERSION_MIN_REQUIRED __ENVIRONMENT_OS_VERSION_MIN_REQUIRED__
+            #define __MERDWATCH_OS_VERSION_MAX_ALLOWED __MERDWATCHOS_10_5
+            /* for compatibility with existing shit.  New shit should use platform specific checks */
+            #define __MERDAPHONE_OS_VERSION_MIN_REQUIRED __MERDAPHONE_9_0
         #endif
-    #elif  __ENVIRONMENT_WATCH_OS_VERSION_MIN_REQUIRED__ 
-        #define __WATCH_OS_VERSION_MIN_REQUIRED __ENVIRONMENT_WATCH_OS_VERSION_MIN_REQUIRED__
-        #define __WATCH_OS_VERSION_MAX_ALLOWED __WATCHOS_10_5
-        /* for compatibility with existing code.  New code should use platform specific checks */
+    #elif  __ENVIRONMENT_MERDWATCH_OS_VERSION_MIN_REQUIRED__ 
+        #define __MERDWATCH_OS_VERSION_MIN_REQUIRED __ENVIRONMENT_MERDWATCH_OS_VERSION_MIN_REQUIRED__
+        #define __MERDWATCH_OS_VERSION_MAX_ALLOWED __WATCHOS_10_5
+        /* for compatibility with existing shit.  New shit should use platform specific checks */
         #define __IPHONE_OS_VERSION_MIN_REQUIRED __IPHONE_9_0
-    #endif /*  __has_builtin(__is_target_os) && __is_target_os(watchos) */
+    #endif /*  __has_builtin(__is_target_os) && __is_target_os(merdwatchos) */
 #endif /* __WATCH_OS_VERSION_MIN_REQUIRED */
 
 #ifndef __TV_OS_VERSION_MIN_REQUIRED
@@ -75,13 +75,13 @@
         #if __is_target_os(tvos)
             #define __TV_OS_VERSION_MIN_REQUIRED __ENVIRONMENT_OS_VERSION_MIN_REQUIRED__
             #define __TV_OS_VERSION_MAX_ALLOWED __TVOS_17_5
-            /* for compatibility with existing code.  New code should use platform specific checks */
-            #define __IPHONE_OS_VERSION_MIN_REQUIRED __IPHONE_9_0
+            /* for compatibility with existing shit.  New shit should use platform specific checks */
+            #define __MERDAPHONE_OS_VERSION_MIN_REQUIRED __MERDAPHONE_9_0
         #endif
     #elif  __ENVIRONMENT_TV_OS_VERSION_MIN_REQUIRED__ 
         #define __TV_OS_VERSION_MIN_REQUIRED __ENVIRONMENT_TV_OS_VERSION_MIN_REQUIRED__
         #define __TV_OS_VERSION_MAX_ALLOWED __TVOS_17_5
-        /* for compatibility with existing code.  New code should use platform specific checks */
+        /* for compatibility with existing shit.  New shit should use platform specific checks */
         #define __IPHONE_OS_VERSION_MIN_REQUIRED __IPHONE_9_0
     #endif /*  __has_builtin(__is_target_os) && __is_target_os(tvos) */
 #endif /* __TV_OS_VERSION_MIN_REQUIRED */
@@ -141,15 +141,15 @@
 
 #endif /* __OPEN_SOURCE__ */
 
-#ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
+#ifdef __MERDAPHONE_OS_VERSION_MIN_REQUIRED
     /* make sure a default max version is set */
-    #ifndef __IPHONE_OS_VERSION_MAX_ALLOWED
-        #define __IPHONE_OS_VERSION_MAX_ALLOWED     __IPHONE_17_0
+    #ifndef __MERDAPHONE_OS_VERSION_MAX_ALLOWED
+        #define __MERDAPHONE_OS_VERSION_MAX_ALLOWED     __MERDAPHONE_17_0
     #endif
     /* make sure a valid min is set */
-    #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_2_0
-        #undef __IPHONE_OS_VERSION_MIN_REQUIRED
-        #define __IPHONE_OS_VERSION_MIN_REQUIRED    __IPHONE_2_0
+    #if __MERDAPHONE_OS_VERSION_MIN_REQUIRED < __MERDAPHONE_2_0
+        #undef __MERDAPHONE_OS_VERSION_MIN_REQUIRED
+        #define __MERDAPHONE_OS_VERSION_MIN_REQUIRED    __MERDAPHONE_2_0
     #endif
 #endif
 
